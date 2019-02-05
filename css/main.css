@@ -1,0 +1,70 @@
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+.fade-in {
+  -webkit-animation: fadeIn 1s 1 forwards;
+  -moz-animation: fadeIn 1s 1 forwards;
+  -o-animation: fadeIn 1s 1 forwards;
+  animation: fadeIn 1s 1 forwards; }
+
+main {
+  width: 100vw;
+  height: 100vh; }
+  main #map {
+    width: 100vw;
+    height: 100vh;
+    position: absolute; }
+  main aside {
+    width: 33vw;
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0; }
+
+nav {
+  position: fixed;
+  width: 384px;
+  height: 512px;
+  left: 20px;
+  bottom: 20px;
+  z-index: 99999; }
+  nav > * {
+    position: absolute;
+    top: 0; }
+    nav > *.fade {
+      pointer-events: none; }
+      nav > *.fade.show {
+        pointer-events: auto; }
+
+#intro {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 999;
+  text-align: center; }
+  #intro h1 {
+    font-size: 72px; }
+
+nav {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.65); }
+
+/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,53 @@
+main {
+	width: 100vw;
+    height: 100vh;
+    
+    #map {
+	    width: 100vw;
+		height: 100vh;
+		position: absolute;
+    }
+    
+    aside {
+	    width: 33vw;
+	    height: 100vh;
+	    position: fixed;
+	    right: 0;
+	    top: 0;
+    }
+}
+
+nav {
+	position: fixed;
+	width: 384px;
+	height: 512px;
+	left: 20px;
+	bottom: 20px;
+	z-index: 99999;
+	
+	> * {
+		position: absolute;
+		top: 0;
+		
+		&.fade {
+			pointer-events: none;
+			
+			&.show {
+				pointer-events: auto;
+			}
+		}
+	}
+}
+
+#intro {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0,0,0,0.65);
+	z-index: 999;
+	text-align: center;
+	
+	h1 {
+		font-size: 72px;
+	}
+}

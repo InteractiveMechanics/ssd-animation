@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/mapbox/mapbox-gl.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/main.css" crossorigin="anonymous">
+
+    <title>See the Spread - Spit Spreads Death</title>
+</head>
+<body>
+	<div id="intro" class="fade show">
+		<h1>See the Spread</h1>
+		<h2>Watch how the influenza epidemic spread across the city of Philadelphia. Each red dot represents one individual death.</h2>
+		<h3>Tap the Touchscreen Below to Begin.</h3>
+	</div>
+	
+	<main>
+		<div id="map"></div>
+		<aside class="fade">
+			<div id="date">August 1, 1918</div>
+			<hr/>
+			<canvas id="graph"></canvas>
+			<div id="count">
+				<h1 class="count-total">0</h1>
+				<h2 class="count-title">ALL FLU-RELATED DEATHS</h2>
+				<h3 class="count-comparison">COMPARED TO <span class="count-comparison-total"></span> TOTAL DEATHS FOR THE SAME PERIOD IN 1917</h3>
+			</div>
+		</aside>
+	</main>
+		
+	<nav>
+		<div class="nav-intro fade show">
+			<h4>Watch the Animation</h4>
+			<h2>Use the tablet to control the demographic data displayed on screen to explore trends and see the spread of the flu during the epidemic.</h2>
+			<button id="start" type="button" class="btn btn-primary">See the Spread</button>
+		</div>
+		<div class="nav-options fade">
+			<h5>FILTER MAP BY</h3>
+			<div id="filter-gender" class="filter-group">
+				<h3>GENDER</h3>
+				<input type="button" class="btn btn-secondary active" name="filter-group-gender" data-gender="M" value="MALE">
+				<input type="button" class="btn btn-secondary active" name="filter-group-gender" data-gender="F" value="FEMALE">
+			</div>
+			
+			<div id="filter-race" class="filter-group">
+				<h3>ETHNICITY</h3>
+				<input type="button" class="btn btn-secondary active" name="filter-group-race" data-race="B" value="AFRICAN AMERICAN">
+				<input type="button" class="btn btn-secondary active" name="filter-group-race" data-race="W" value="ITALIAN">
+				<input type="button" class="btn btn-secondary active" name="filter-group-race" data-race="W" value="IRISH">
+				<input type="button" class="btn btn-secondary active" name="filter-group-race" data-race="W" value="GERMAN">
+				<input type="button" class="btn btn-secondary active" name="filter-group-race" data-race="W" value="EASTERN EUROPEAN">
+			</div>
+			
+			<div id="filter-age" class="filter-group">
+				<h3>AGE GROUP</h3>
+				<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="0" data-age-max="12" value="UNDER 13">
+				<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="13" data-age-max="18" value="13&ndash;18">
+				<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="19" data-age-max="35" value="19&ndash;35">
+				<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="36" data-age-max="45" value="36&ndash;45">
+				<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="46" data-age-max="55" value="46&ndash;55">
+				<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="56" data-age-max="100" value="OVER 55">
+			</div>
+			
+			<button id="show-all-deaths" type="button" class="btn btn-primary disabled" disabled="disabled">Show All Deaths</button>
+		</div>
+		<div class="nav-outro fade">
+			<h2>
+				By <span class="nav-outro-end">April 31, 1919</span>, over <span class="nav-outro-total-count">XX,XXX</span> Philadelphians died from flu related symptoms across the city. 
+				XX% more than the typical death rate, and an average of XXX individuals died every day during this time. XX% of the population died from the 1918–19 epidemic.
+			</h2>
+			<button id="restart" type="button" class="btn btn-primary">Watch Again</button>
+		</div>
+	</nav>
+
+    <script src="./js/jquery/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="./js/jquery/popper.min.js" crossorigin="anonymous"></script>
+    <script src="./js/defiant/defiant.min.js" crossorigin="anonymous"></script>
+    <script src="./js/mapbox/mapbox-gl.js" crossorigin="anonymous"></script>
+    <script src="./js/bootstrap/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="./js/chartjs/Chart.bundle.min.js" crossorigin="anonymous"></script>
+    
+    <script src="./js/Utils.js" crossorigin="anonymous"></script>
+    <script src="./js/UI.js" crossorigin="anonymous"></script>
+    <script src="./js/Data.js" crossorigin="anonymous"></script>
+    <script src="./js/Timeline.js" crossorigin="anonymous"></script>
+    <script src="./js/App.js" crossorigin="anonymous"></script>
+</body>
+</html>
