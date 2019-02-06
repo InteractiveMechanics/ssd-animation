@@ -43,7 +43,7 @@ Timeline = (function() {
 					    });
 					    
 					    // EACH DAY, WRITE THE DATA
-					    UI.writeFrame(prettyDateString);
+					    UI.writeFrame(currentDate);
 					    
 					    // SET THE DATE UP BY ONE
 					    currentDate = currentDate + day;
@@ -68,6 +68,7 @@ Timeline = (function() {
 		
 		// RESET UI COUNTS
 		UI.resetTotalCount();
+		UI.resetChartData();
     }
     
     var setTimelinePaused = function(value) {

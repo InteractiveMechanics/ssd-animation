@@ -45,6 +45,7 @@ Utilities = (function() {
 	    Timeline.setTimelinePaused(false);
 	    Timeline.resetTimeline();
 	    Timeline.loopThroughDays();
+	    UI.resetFilters();
     }
     
     var endTimeline = function() {	    

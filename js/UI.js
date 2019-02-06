@@ -74,14 +74,12 @@ UI = (function() {
 				    {
 						label: 'All Flu Deaths',
 						fill: false,
-						data: [],
-					}, {
-						label: 'All Deaths',
-						fill: false,
+						borderColor: '#FF0000',
 						data: [],
 					}, {
 						label: 'Filtered Flu Deaths',
 						fill: false,
+						borderColor: '#00FF00',
 						data: [],
 					}
 				]
@@ -90,12 +88,14 @@ UI = (function() {
 			    legend: {
 				    display: false
 			    },
-		        scales: {
-		            xAxes: [{
-		                type: 'category',
-		                labels: ['Aug 1918', 'Sept 1918', 'Oct 1918', 'Nov 1918', 'Dec 1918', 'Jan 1919', 'Feb 1919', 'Mar 1919', 'Apr 1919'],
-		            }]
-		        }
+			    scales: {
+				    xAxes: [{
+					    type: 'time',
+					    time: {
+						    unit: 'month'
+					    }
+				    }]
+			    }
 		    }
 		});
 		
@@ -150,9 +150,10 @@ UI = (function() {
     var updateFilterCount = function() {
 	    // SET UP A QUERY TO GET ALL RECORDS FOR A FILTER SET
 	    var query = '';
+	    var results;
 	    
 	    if (filterGender || filterAgeMin || filterAgeMax || filterRace){
-		    query += '[date <= "' + (parseInt(Timeline.getCurrentDate()) + 86400) + '"]';
+		    query += '[date <= ' + (parseInt(Timeline.getCurrentDate()) + 86400) + ']';
 		    
 		    if (filterGender){
 			    query += '[sex="' + filterGender + '"]';
@@ -163,14 +164,14 @@ UI = (function() {
 		    if (filterAgeMin && filterAgeMax){
 			    query += '[age>="' + filterAgeMin + '"][age<="' + filterAgeMax + '"]';
 		    }
-		    var results = defiant.search(Data.cleanData, '//features/properties' + query);
+		    results = defiant.search(Data.cleanData, '//features/properties' + query);
 		    
 		    // CHANGE FILTERED TOTAL COUNT
 		    filteredTotalCount = results.length;
+		    
+		    // UPDATE THE TOTAL COUNT UI ON DISPLAY
+			updateTotalCount();
 		}
-		
-		// UPDATE THE TOTAL COUNT UI ON DISPLAY
-		updateTotalCount();
     }
     
     var updateMapFilters = function() {
@@ -220,29 +221,32 @@ UI = (function() {
 		}
     }
     
-	var writeFrame = function(prettyDateString) {
+	var writeFrame = function(currentDate) {
 		// EACH FRAME OF THE TIMELINE
 		updateTotalCount();
 		updateMapFilters();
 		
-		// setGraphData(prettyDateString);
+		if (filterGender || filterAgeMin || filterAgeMax || filterRace){
+			setGraphData(currentDate, dailyDeaths, dailyFilteredDeaths);
+		} else {
+			setGraphData(currentDate, dailyDeaths, null);
+		}
 		
 		dailyDeaths = 0;
 		dailyFilteredDeaths = 0;
 	}
     
-    var setGraphData = function(label) {
-	    // TODO:
+    var setGraphData = function(currentDate, dailyDeaths, dailyFilteredDeaths) {
 	    // UPDATE EACH AVAILABLE LINE CHART
 	    // WITH APPROPRIATE DATA FOR THIS DAY
+	    	    
+	    chart.data.labels.push(currentDate);
+	    chart.data.datasets[0].data.push({t: currentDate, y: dailyDeaths});
 	    
-	    /*
-	    chart.data.labels.push(label);
-	    chart.data.datasets.forEach((dataset) => {
-	        dataset.data.push(data);
-	    });
+	    if (dailyFilteredDeaths){
+	    	chart.data.datasets[1].data.push({t: currentDate, y: dailyFilteredDeaths});
+	    }   
 	    chart.update();
-	    */
     }
     
     var updateCountTitle = function() {
@@ -323,6 +327,7 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    disableResetFilterButton();
+	    resetFilterChartData();
 	}
     
     var resetTotalCount = function() {
@@ -330,6 +335,15 @@ UI = (function() {
 	    filteredTotalCount = 0;
 	    
 	    updateTotalCount();
+    }
+    
+    var resetFilterChartData = function() {
+	    chart.data.datasets[1].data = [];
+    }
+    
+    var resetChartData = function() {
+	    chart.data.datasets[0].data = [];
+	    chart.data.datasets[1].data = [];
     }
     
     var enableResetFilterButton = function() {
@@ -345,9 +359,11 @@ UI = (function() {
         filterAgeMin: filterAgeMin,
         filterAgeMax: filterAgeMax,
         filterRace: filterRace,
-        resetTotalCount: resetTotalCount,
         addRecordData: addRecordData,
-        writeFrame: writeFrame
+        writeFrame: writeFrame,
+        resetTotalCount: resetTotalCount,
+        resetChartData: resetChartData,
+        resetFilters: resetFilters
     }
 
 })(mapboxgl);
