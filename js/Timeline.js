@@ -1,6 +1,6 @@
 Timeline = (function() {
 	var startDate = -1622664000000; // August 1, 1918
-	var endDate = -1599115740000; // April 30, 1919
+	var endDate = -1599115653600; // April 30, 1919
 	var currentDate = -1622664000000; // August 1, 1918
 	
 	var day = 86400000; // 1 day in milliseconds

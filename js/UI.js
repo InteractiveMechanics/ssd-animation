@@ -149,15 +149,10 @@ UI = (function() {
     
     var updateFilterCount = function() {
 	    // SET UP A QUERY TO GET ALL RECORDS FOR A FILTER SET
-	    
-	    // TODO:
-	    // THIS ISN'T WORKING YET—NEEDS TO PULL ALL DATA
-	    // AND UPDATE DATA FOR EACH DAY AS TIMELINE RUNS
-	    // AND UPDATE ON DEMAND AS FILTERS CHANGE
 	    var query = '';
 	    
 	    if (filterGender || filterAgeMin || filterAgeMax || filterRace){
-		    query += '[date <= ' + Timeline.getCurrentDate() + ']';
+		    query += '[date <= "' + (parseInt(Timeline.getCurrentDate()) + 86400) + '"]';
 		    
 		    if (filterGender){
 			    query += '[sex="' + filterGender + '"]';
@@ -208,6 +203,21 @@ UI = (function() {
 	    // UPDATE TOTAL COUNT BY ONE
 	    totalCount++;
 	    dailyDeaths++;
+	   		    
+	    // IF THERE IS A FILTER SET
+	    if (filterGender || filterAgeMin || filterAgeMax || filterRace) {
+		    
+		    // MAKE SURE THE FILTERS MATCH		    
+		    if (
+		    	(filterGender == '' || value.properties.sex == filterGender) &&
+		    	(filterRace == '' || value.properties.race == filterRace) &&
+				(filterAgeMin == '' || value.properties.age >= filterAgeMin && value.properties.age <= filterAgeMax)) {
+				
+					// ADD IT TO THE FILTERED COUNTS
+					filteredTotalCount++;
+					dailyFilteredDeaths++;
+		    }
+		}
     }
     
 	var writeFrame = function(prettyDateString) {
