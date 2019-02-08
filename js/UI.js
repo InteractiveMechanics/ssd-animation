@@ -331,6 +331,26 @@ UI = (function() {
 	    }
     }
     
+    var moveMapToLatLon = function(lat, lon, zoom) {
+	    map.flyTo({
+		    // These options control the ending camera position: centered at
+			// the target, at zoom level 9, and north up.
+			center: [lon, lat],
+			zoom: zoom,
+			bearing: 0,
+			 
+			// These options control the flight curve, making it move
+			// slowly and zoom out almost completely before starting
+			// to pan.
+			speed: 1,
+			curve: 1,
+			 
+			// This can be any easing function: it takes a number between
+			// 0 and 1 and returns another number between 0 and 1.
+			easing: function (t) { return t; }
+		});
+    }
+    
     var resetFilters = function() {
 	    filterGender = '';
 		filterAgeMin = '';
@@ -381,7 +401,8 @@ UI = (function() {
         writeFrame: writeFrame,
         resetTotalCount: resetTotalCount,
         resetChartData: resetChartData,
-        resetFilters: resetFilters
+        resetFilters: resetFilters,
+        moveMapToLatLon: moveMapToLatLon
     }
 
 })(mapboxgl);
