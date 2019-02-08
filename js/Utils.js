@@ -1,6 +1,6 @@
 Utilities = (function() {
 	var timer;
-	var duration = 5000; // 30 seconds
+	var duration = 30000; // 30 seconds
 	
 	var init = function() {
         bindEvents();

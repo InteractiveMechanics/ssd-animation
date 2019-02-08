@@ -56,7 +56,7 @@ UI = (function() {
 				'source': 'deaths',
 				'paint': {
 					'circle-color': '#FF0000',
-					'circle-opacity': 0.75,
+					'circle-opacity': 0.5,
 					'circle-radius': 6
 				}
 			});
@@ -75,11 +75,15 @@ UI = (function() {
 						label: 'All Flu Deaths',
 						fill: false,
 						borderColor: '#FF0000',
+						pointRadius: 0,
+						spanGaps: true,
 						data: [],
 					}, {
 						label: 'Filtered Flu Deaths',
 						fill: false,
-						borderColor: '#00FF00',
+						borderColor: '#CCC',
+						pointRadius: 0,
+						spanGaps: true,
 						data: [],
 					}
 				]
@@ -89,10 +93,24 @@ UI = (function() {
 				    display: false
 			    },
 			    scales: {
+				    yAxes: [{
+					    display: false,
+					    offset: true,
+					    scaleLabel: {
+					    	drawBorder: false,
+							zeroLineWidth: false
+						},
+						ticks: {
+							min: 0
+						}
+				    }],
 				    xAxes: [{
 					    type: 'time',
 					    time: {
 						    unit: 'month'
+					    },
+					    scaleLabel: {
+					    	fontColor: '#CCC'
 					    }
 				    }]
 			    }

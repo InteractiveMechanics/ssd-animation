@@ -4,7 +4,7 @@ Timeline = (function() {
 	var currentDate = -1622664000000; // August 1, 1918
 	
 	var day = 86400000; // 1 day in milliseconds
-	var speed = 50; // 1/4 second per day
+	var speed = 250; // 1/4 second per day
 	
 	var timelineInterval;	
 	var isPaused = true;

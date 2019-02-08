@@ -1,4 +1,43 @@
 nav {
 	text-align: center;
 	background: white;
+	box-shadow: 0 0 20px rgba(0,0,0,0.5);
+	
+	> div {
+		padding: 40px 20px;
+	}
+	
+	h2 {
+		font-size: 1rem;
+	}
+	
+	.nav-intro {
+		h4 {
+			margin-bottom: 20px;
+		}
+		.btn {
+			margin-top: 60px;
+		}
+	}
+	.nav-options {
+		h2 {
+			margin-top: 10px;
+		}
+		h4 {
+			margin-bottom: 0;
+		}
+		.btn.btn-primary {
+			margin-top: 20px;
+		}
+		.btn.btn-secondary {
+			font-size: 0.75rem;
+			padding: .5rem 1rem .5rem;
+			margin-bottom: 5px;
+		}
+	}
+	.nav-outro {
+		.btn {
+			margin-top: 60px;
+		}
+	}
 }
