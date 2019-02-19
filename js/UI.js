@@ -56,8 +56,8 @@ UI = (function() {
 				'source': 'deaths',
 				'paint': {
 					'circle-color': '#FF0000',
-					'circle-opacity': 0.5,
-					'circle-radius': 6
+					'circle-opacity': 0.25,
+					'circle-radius': 10
 				}
 			});
 			

@@ -35,7 +35,7 @@ Timeline = (function() {
 					   	
 					   	// CHECK FOR EVERY NEW RECORD FOR THIS DAY
 					    $.each(Data.cleanData["features"], function(index, value){
-							if (value["properties"]["date"] > currentDate && value["properties"]["date"] < currentDate + day){
+							if (value["properties"]["date"] >= currentDate && value["properties"]["date"] < currentDate + day){
 								
 								// IF THIS RECORD HAPPENED TODAY, ADD IT TO UI
 								UI.addRecordData(value);
