@@ -7,7 +7,7 @@ Utilities = (function() {
     }
     
     var bindEvents = function() {
-        $(document).on('click tap drag', '#start', startTimeline);
+        $(document).on('click tap drag', '#intro', startTimeline);
         $(document).on('click tap drag', '#restart', startTimeline);
     }
 
