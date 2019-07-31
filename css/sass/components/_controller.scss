@@ -1,7 +1,14 @@
 nav {
 	text-align: center;
 	background: white;
-	box-shadow: 0 0 20px rgba(0,0,0,0.5);
+	margin-top: -60px;
+	
+	#show-hide-filters {
+		width: 100%;
+		height: 60px;
+		background: #A5AA3A;
+		border: none;
+	}
 	
 	> div {
 		padding: 40px 20px;

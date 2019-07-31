@@ -19,6 +19,7 @@ UI = (function() {
 	// STORE THE COUNTS
 	var totalCount = 0;
 	var filteredTotalCount = 0;
+	var dailyTotalCount = 0;
 	
 	var dailyDeaths = 0;
 	var dailyFilteredDeaths = 0;
@@ -36,8 +37,8 @@ UI = (function() {
 		map = new mapboxgl.Map({
 		    container: 'map',
 		    style: 'mapbox://styles/mapbox/light-v9',
-		    zoom: 12,
-			center: [-75.1204122, 39.9550073]
+		    zoom: 11.2,
+			center: [-75.0810122, 39.9793073]
 		});
 		
 		// WHEN THE MAP LOADS
@@ -56,8 +57,8 @@ UI = (function() {
 				'source': 'deaths',
 				'paint': {
 					'circle-color': '#FF0000',
-					'circle-opacity': 0.2,
-					'circle-radius': 5
+					'circle-opacity': 0.15,
+					'circle-radius': 4
 				}
 			});
 			
@@ -81,7 +82,7 @@ UI = (function() {
 					}, {
 						label: 'Filtered Flu Deaths',
 						fill: false,
-						borderColor: '#CCC',
+						borderColor: '#A5AA3A',
 						pointRadius: 0,
 						spanGaps: true,
 						data: [],
@@ -109,8 +110,15 @@ UI = (function() {
 					    time: {
 						    unit: 'month'
 					    },
+					    gridLines: {
+						    color: 'rgba(255, 255, 255, 0.35)',
+						    borderDash: [4, 4]
+					    },
+					    ticks: {
+						    fontColor: 'rgba(255, 255, 255, 0.5)'
+					    },
 					    scaleLabel: {
-					    	fontColor: '#CCC'
+					    	fontColor: 'rgba(255, 255, 255, 0.5)'
 					    }
 				    }]
 			    }
@@ -128,6 +136,7 @@ UI = (function() {
         $(document).on('click tap', 'input[name="filter-group-gender"]', filterByGender);
         
         $(document).on('click tap', '#show-all-deaths', resetFilters);
+        $(document).on('click tap', '#show-hide-filters', toggleFilterPanel);
     }
     
     var filterByAge = function() {
@@ -239,6 +248,10 @@ UI = (function() {
 		}
     }
     
+    var addDailyDataCount = function(count) {
+	    dailyTotalCount = dailyTotalCount + count;
+    }
+    
 	var writeFrame = function(currentDate) {
 		// EACH FRAME OF THE TIMELINE
 		updateTotalCount();
@@ -293,6 +306,10 @@ UI = (function() {
 				text += " BLACK";
 			} else if (filterRace == "W"){
 				text += " WHITE";
+			} else if (filterRace == "A"){
+				text += " ASIAN";
+			} else if (filterRace == "L"){
+				text += " LATINX";
 			}
 		}
 		
@@ -329,6 +346,8 @@ UI = (function() {
 	    } else {
 		    $('#count .count-total').text(totalCount);
 	    }
+	    
+	    $('#count .count-comparison-total').text(dailyTotalCount);
     }
     
     var moveMapToLatLon = function(lat, lon, zoom) {
@@ -351,6 +370,10 @@ UI = (function() {
 		});
     }
     
+    var toggleFilterPanel = function() {
+	    $('aside').toggleClass('filtersOpen');
+    }
+    
     var resetFilters = function() {
 	    filterGender = '';
 		filterAgeMin = '';
@@ -371,6 +394,7 @@ UI = (function() {
     var resetTotalCount = function() {
 	    totalCount = 0;
 	    filteredTotalCount = 0;
+	    dailyTotalCount = 0;
 	    
 	    updateTotalCount();
     }
@@ -398,6 +422,7 @@ UI = (function() {
         filterAgeMax: filterAgeMax,
         filterRace: filterRace,
         addRecordData: addRecordData,
+        addDailyDataCount: addDailyDataCount,
         writeFrame: writeFrame,
         resetTotalCount: resetTotalCount,
         resetChartData: resetChartData,

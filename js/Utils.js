@@ -16,12 +16,8 @@ Utilities = (function() {
 	    
 		// RETURN TO ATTRACT SCREEN
 		$('#intro').addClass('show');
+		$('#outro').removeClass('show');
 		$('aside').removeClass('show');
-		
-		// HIDE / SHOW NAV SCREENS
-	    $('.nav-intro').addClass('show');
-	    $('.nav-outro').removeClass('show');
-	    $('.nav-options').removeClass('show');
     }
 
     var resetBrowser = function() {
@@ -33,12 +29,8 @@ Utilities = (function() {
 	    
 	    // HIDE ATTRACT
 	    $('#intro').removeClass('show');
+	    $('#outro').removeClass('show');
 	    $('aside').addClass('show');
-	    	    
-	    // HIDE / SHOW NAV SCREENS
-	    $('.nav-intro').removeClass('show');
-	    $('.nav-outro').removeClass('show');
-	    $('.nav-options').addClass('show');
 	    
 	    // RESET EVERYTHING
 	    // START TIMELINE
@@ -48,11 +40,8 @@ Utilities = (function() {
 	    UI.resetFilters();
     }
     
-    var endTimeline = function() {	    
-	    // HIDE / SHOW NAV SCREENS
-	    $('.nav-intro').removeClass('show');
-	    $('.nav-outro').addClass('show');
-	    $('.nav-options').removeClass('show');
+    var endTimeline = function() {
+	    $('#outro').addClass('show');
 	    
 	    Timeline.setTimelinePaused(true);
     }

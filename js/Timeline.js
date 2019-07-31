@@ -1,12 +1,12 @@
 Timeline = (function() {
-	var startDate = -1622664000000; // August 1, 1918
-	var endDate = -1599115653600; // April 30, 1919
-	var currentDate = -1622664000000; // August 1, 1918
-	
+	var startDate = -1619899200000; // September 1, 1918
+	var endDate = -1601707653600; // March 30, 1919
+	var currentDate = -1619899200000; // September 1, 1918
+
 	var day = 86400000; // 1 day in milliseconds
 	var speed = 250; // 1/4 second per day
 	
-	var timelineInterval;	
+	var timelineInterval;
 	var isPaused = true;
 	
 
@@ -41,6 +41,14 @@ Timeline = (function() {
 								UI.addRecordData(value);
 							}
 					    });
+					    					    
+					    $.each(Data.dailyData["dates"], function(index, value){
+						    var prettyDailyDate = new Date(value["date"]);
+						    			    
+						    if (prettyDailyDate.getTime() >= currentDate && prettyDailyDate.getTime() < currentDate + day){
+							    UI.addDailyDataCount(value["count"]);
+						    }
+					    });
 					    
 					    // EACH DAY, WRITE THE DATA
 					    UI.writeFrame(currentDate);
@@ -52,6 +60,7 @@ Timeline = (function() {
 					    // SET OUTRO SCREENS					    
 					    Utilities.endTimeline();
 					    Utilities.startRestartTimer();
+					    UI.moveMapToLatLon(39.9793073, -75.0810122, 11.2);
 					    
 					    // CLEAR THE INTERVAL TIMER AND RESTART TIMER		
 						clearInterval(timelineInterval);
