@@ -38,7 +38,13 @@ UI = (function() {
 		    container: 'map',
 		    style: 'mapbox://styles/mapbox/light-v9',
 		    zoom: 11.2,
-			center: [-75.0810122, 39.9793073]
+			center: [-75.0810122, 39.9793073],
+			minZoom: 11.2,
+			maxZoom: 18,
+			maxBounds: [
+				[-75.37334745185173, 39.80731121765379], // Southwest coordinates {"lng":-75.37334745185173,"lat":39.80731121765379}
+				[-74.74090421442446, 40.1510792131933]  // Northeast coordinates {"lng":-74.74090421442446,"lat":40.1510792131933}
+			]
 		});
 		
 		// WHEN THE MAP LOADS
@@ -303,9 +309,9 @@ UI = (function() {
 			}
 			
 			if (filterRace == "B"){
-				text += " BLACK";
+				text += " AFRICAN AMERICAN";
 			} else if (filterRace == "W"){
-				text += " WHITE";
+				text += " EUROPEAN WHITE";
 			} else if (filterRace == "A"){
 				text += " ASIAN";
 			} else if (filterRace == "L"){
@@ -342,12 +348,16 @@ UI = (function() {
         
     var updateTotalCount = function() {
 	    if (filterGender || filterAgeMin || filterAgeMax || filterRace){
-	    	$('#count .count-total').text(filteredTotalCount);
+	    	$('#count .count-total').text(addCommasToNumbers(filteredTotalCount));
 	    } else {
-		    $('#count .count-total').text(totalCount);
+		    $('#count .count-total').text(addCommasToNumbers(totalCount));
 	    }
 	    
-	    $('#count .count-comparison-total').text(dailyTotalCount);
+	    $('#count .count-comparison-total').text(addCommasToNumbers(dailyTotalCount));
+    }
+    
+    var addCommasToNumbers = function(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     
     var moveMapToLatLon = function(lat, lon, zoom) {
@@ -372,6 +382,11 @@ UI = (function() {
     
     var toggleFilterPanel = function() {
 	    $('aside').toggleClass('filtersOpen');
+	    if ( $('aside').hasClass('filtersOpen') ) {
+		    $('#show-hide-filters').text('HIDE FILTERS');
+	    } else {
+		    $('#show-hide-filters').text('SHOW FILTERS');
+	    }
     }
     
     var resetFilters = function() {
@@ -396,6 +411,8 @@ UI = (function() {
 	    filteredTotalCount = 0;
 	    dailyTotalCount = 0;
 	    
+	    $('aside').removeClass('filtersOpen');
+	    $('#show-hide-filters').text('SHOW FILTERS');
 	    updateTotalCount();
     }
     
