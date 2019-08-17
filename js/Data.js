@@ -103,7 +103,8 @@ Data = (function() {
 				    "age": age,
 				    "race": value.rabe,
 				    "sex": value.sex,
-				    "status": value.status
+				    "status": value.status,
+				    "gen": value.gen
 			    },
 			    "geometry": {
 				    "type": "Point",

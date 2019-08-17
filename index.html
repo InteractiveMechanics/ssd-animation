@@ -30,6 +30,7 @@
 	</div>
 	
 	<main>
+		<div id="message" class="fade"></div>
 		<div id="map"></div>
 		<aside class="fade">
 			<div class="aside-group">
@@ -67,6 +68,14 @@
 						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="36" data-age-max="45" value="36&ndash;45">
 						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="46" data-age-max="55" value="46&ndash;55">
 						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="56" data-age-max="100" value="OVER 55">
+					</div>
+					
+					<div id="filter-gen" class="filter-group">
+						<h2>IMMIGRATION GENERATION</h2>
+						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="0g" value="ABROAD">
+						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="1g" value="1ST GENERATION">
+						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="2g" value="2ND+ GENERATION">
+						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="99g" value="UNKNOWN">
 					</div>
 					
 					<button id="show-all-deaths" type="button" class="btn btn-primary disabled" disabled="disabled">RESET FILTERS</button>

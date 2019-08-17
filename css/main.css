@@ -67,6 +67,16 @@ main {
     width: 100vw;
     height: 100vh;
     position: absolute; }
+  main #message {
+    position: absolute;
+    z-index: 9999;
+    bottom: 50px;
+    left: 50px;
+    width: 61vw;
+    padding: 25px 35px;
+    background: white;
+    font-size: 1.4rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25); }
   main aside {
     width: 33vw;
     height: 100vh;

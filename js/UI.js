@@ -15,13 +15,15 @@ UI = (function() {
 	var filterAgeMin = '';
 	var filterAgeMax = '';
 	var filterRace = '';
+	var filterGen = '';
 	
 	// STORE THE COUNTS
 	var totalCount = 0;
 	var filteredTotalCount = 0;
-	var dailyTotalCount = 0;
+	var allTotalCount = 0;
 	
 	var dailyDeaths = 0;
+	var dailyTotalDeaths = 0;
 	var dailyFilteredDeaths = 0;
 	
 	// STORE RENDERING FOR CHART AND MAP
@@ -66,7 +68,7 @@ UI = (function() {
 					'circle-opacity': 0.15,
 					'circle-radius': 4
 				}
-			});
+			});	
 			
 			// SET THE MAP FILTERS INITIALLY
 			updateMapFilters();
@@ -86,9 +88,9 @@ UI = (function() {
 						spanGaps: true,
 						data: [],
 					}, {
-						label: 'Filtered Flu Deaths',
+						label: 'Total Deaths',
 						fill: false,
-						borderColor: '#A5AA3A',
+						borderColor: '#999999',
 						pointRadius: 0,
 						spanGaps: true,
 						data: [],
@@ -140,6 +142,7 @@ UI = (function() {
         $(document).on('click tap', 'input[name="filter-group-age"]', filterByAge);
         $(document).on('click tap', 'input[name="filter-group-race"]', filterByRace);
         $(document).on('click tap', 'input[name="filter-group-gender"]', filterByGender);
+        $(document).on('click tap', 'input[name="filter-group-gen"]', filterByImmigration);
         
         $(document).on('click tap', '#show-all-deaths', resetFilters);
         $(document).on('click tap', '#show-hide-filters', toggleFilterPanel);
@@ -179,13 +182,24 @@ UI = (function() {
 	    updateMapFilters();
 	    enableResetFilterButton();
     }
+    var filterByImmigration = function() {
+	    filterGen = $(this).attr('data-gen');
+	    
+	    $('input[name="filter-group-gen"]').removeClass('active');
+	    $(this).addClass('active');
+	    
+	    updateFilterCount();
+	    updateCountTitle();
+	    updateMapFilters();
+	    enableResetFilterButton();
+    }
     
     var updateFilterCount = function() {
 	    // SET UP A QUERY TO GET ALL RECORDS FOR A FILTER SET
 	    var query = '';
 	    var results;
 	    
-	    if (filterGender || filterAgeMin || filterAgeMax || filterRace){
+	    if (filterGender || filterAgeMin || filterAgeMax || filterRace || filterGen){
 		    query += '[date <= ' + (parseInt(Timeline.getCurrentDate()) + 86400) + ']';
 		    
 		    if (filterGender){
@@ -193,6 +207,9 @@ UI = (function() {
 		    }
 		    if (filterRace){
 			    query += '[race="' + filterRace + '"]';
+		    }
+		    if (filterGen){
+			    query += '[gen="' + filterGen + '"]';
 		    }
 		    if (filterAgeMin && filterAgeMax){
 			    query += '[age>="' + filterAgeMin + '"][age<="' + filterAgeMax + '"]';
@@ -222,6 +239,10 @@ UI = (function() {
 			var race = ['==', "race", filterRace];
 			filters.push(race);
 		}
+		if (filterGen) {
+			var gen = ['==', "gen", filterGen];
+			filters.push(gen);
+		}
 		if (filterAgeMin && filterAgeMax) {
 			var ageMin = ['>=', "age", parseInt(filterAgeMin)];
 			var ageMax = ['<=', "age", parseInt(filterAgeMax)];
@@ -239,12 +260,13 @@ UI = (function() {
 	    dailyDeaths++;
 	   		    
 	    // IF THERE IS A FILTER SET
-	    if (filterGender || filterAgeMin || filterAgeMax || filterRace) {
+	    if (filterGender || filterAgeMin || filterAgeMax || filterRace || filterGen) {
 		    
 		    // MAKE SURE THE FILTERS MATCH		    
 		    if (
 		    	(filterGender == '' || value.properties.sex == filterGender) &&
 		    	(filterRace == '' || value.properties.race == filterRace) &&
+		    	(filterGen == '' || value.properties.gen == filterGen) &&
 				(filterAgeMin == '' || value.properties.age >= filterAgeMin && value.properties.age <= filterAgeMax)) {
 				
 					// ADD IT TO THE FILTERED COUNTS
@@ -255,7 +277,8 @@ UI = (function() {
     }
     
     var addDailyDataCount = function(count) {
-	    dailyTotalCount = dailyTotalCount + count;
+	    allTotalCount = allTotalCount + count;
+	    dailyTotalDeaths = count;
     }
     
 	var writeFrame = function(currentDate) {
@@ -263,13 +286,18 @@ UI = (function() {
 		updateTotalCount();
 		updateMapFilters();
 		
+		setGraphData(currentDate, dailyDeaths, dailyTotalDeaths);
+		
+		/*
 		if (filterGender || filterAgeMin || filterAgeMax || filterRace){
 			setGraphData(currentDate, dailyDeaths, dailyFilteredDeaths);
 		} else {
 			setGraphData(currentDate, dailyDeaths, null);
 		}
+		*/
 		
 		dailyDeaths = 0;
+		dailyTotalDeaths = 0;
 		dailyFilteredDeaths = 0;
 	}
     
@@ -289,22 +317,39 @@ UI = (function() {
     var updateCountTitle = function() {
 	    var text = '';
 	    
-	    if (!filterGender && !filterAgeMin && !filterAgeMax && !filterRace){
+	    if (!filterGender && !filterAgeMin && !filterAgeMax && !filterRace && !filterGen){
 		    text = "ALL FLU-RELATED DEATHS";
 		} else {
 			text = "TOTAL ";
 		}
 		
+		if (filterGen){
+			
+			if (filterGen == "0g"){
+				text += " BORN ABROAD";
+			} else if (filterGen == "1g"){
+				text += " FIRST GENERATION";
+			} else if (filterGen == "2g"){
+				text += " 2ND GENERATION OR MORE";
+			} else if (filterGen == "99g"){
+				text += "";
+			}
+		}
+		
 		if (filterGender){
+			if (filterGen){
+				text += ",";	
+			}
+			
 			if (filterGender == "M"){
-				text += "MALE";
+				text += " MALE";
 			} else if (filterGender == "F"){
-				text += "FEMALE";	
+				text += " FEMALE";	
 			}
 		}
 		
 		if (filterRace){
-			if (filterGender){
+			if (filterGender || filterGen){
 				text += ",";	
 			}
 			
@@ -320,7 +365,7 @@ UI = (function() {
 		}
 		
 		if (filterAgeMin){
-			if (filterGender || filterRace){
+			if (filterGender || filterRace || filterGen){
 				text += ", ";	
 			}
 			
@@ -339,7 +384,7 @@ UI = (function() {
 			}
 		}
 		
-		if (filterGender || filterAgeMin || filterAgeMax || filterRace){
+		if (filterGender || filterAgeMin || filterAgeMax || filterRace || filterGen){
 			text += " FLU-RELATED DEATHS";	
 		}
 	    
@@ -353,31 +398,40 @@ UI = (function() {
 		    $('#count .count-total').text(addCommasToNumbers(totalCount));
 	    }
 	    
-	    $('#count .count-comparison-total').text(addCommasToNumbers(dailyTotalCount));
+	    $('#count .count-comparison-total').text(addCommasToNumbers(allTotalCount));
     }
     
     var addCommasToNumbers = function(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     
-    var moveMapToLatLon = function(lat, lon, zoom) {
-	    map.flyTo({
+    var moveMapToLatLon = function(lat, lon, zoom, bearing = 0, pitch = 0) {
+	    map.easeTo({
 		    // These options control the ending camera position: centered at
 			// the target, at zoom level 9, and north up.
 			center: [lon, lat],
+			offset: [0, 0],
 			zoom: zoom,
-			bearing: 0,
+			bearing: bearing,
 			 
 			// These options control the flight curve, making it move
 			// slowly and zoom out almost completely before starting
 			// to pan.
-			speed: 1,
-			curve: 1,
+			duration: 2000,
+			pitch: pitch,
 			 
 			// This can be any easing function: it takes a number between
 			// 0 and 1 and returns another number between 0 and 1.
-			easing: function (t) { return t; }
+			easing: function (t) { return t * (2 - t); }
 		});
+    }
+    
+    var showMessage = function(message) {
+	    $('#message').text(message).addClass('show');
+    }
+    
+    var hideMessage = function() {
+	    $('#message').text('').removeClass('show');
     }
     
     var toggleFilterPanel = function() {
@@ -394,11 +448,13 @@ UI = (function() {
 		filterAgeMin = '';
 		filterAgeMax = '';
 		filterRace = '';
+		filterGen = '';
 		filteredTotalCount = 0;
 		
 		$('input[name="filter-group-race"]').addClass('active');
 	    $('input[name="filter-group-gender"]').addClass('active');
 	    $('input[name="filter-group-age"]').addClass('active');
+	    $('input[name="filter-group-gen"]').addClass('active');
 	    
 	    updateCountTitle();
 	    updateMapFilters();
@@ -409,7 +465,7 @@ UI = (function() {
     var resetTotalCount = function() {
 	    totalCount = 0;
 	    filteredTotalCount = 0;
-	    dailyTotalCount = 0;
+	    allTotalCount = 0;
 	    
 	    $('aside').removeClass('filtersOpen');
 	    $('#show-hide-filters').text('SHOW FILTERS');
@@ -437,6 +493,7 @@ UI = (function() {
         filterGender: filterGender,
         filterAgeMin: filterAgeMin,
         filterAgeMax: filterAgeMax,
+        filterGen: filterGen,
         filterRace: filterRace,
         addRecordData: addRecordData,
         addDailyDataCount: addDailyDataCount,
@@ -444,7 +501,9 @@ UI = (function() {
         resetTotalCount: resetTotalCount,
         resetChartData: resetChartData,
         resetFilters: resetFilters,
-        moveMapToLatLon: moveMapToLatLon
+        moveMapToLatLon: moveMapToLatLon,
+        showMessage: showMessage,
+        hideMessage: hideMessage
     }
 
 })(mapboxgl);

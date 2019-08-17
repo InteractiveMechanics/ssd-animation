@@ -47,6 +47,10 @@ Timeline = (function() {
 						    			    
 						    if (prettyDailyDate.getTime() >= currentDate && prettyDailyDate.getTime() < currentDate + day){
 							    UI.addDailyDataCount(value["count"]);
+							    
+							    if (value["date"] == "1918-10-12"){
+								    pauseAndZoom(39.936878, -75.15842, 16, 0, 0, "This is a test message.");
+							    }
 						    }
 					    });
 					    
@@ -68,6 +72,18 @@ Timeline = (function() {
 				}, speed);
 			}
 		}
+    }
+    
+    var pauseAndZoom = function(lat, lon, zoom, bearing, pitch, message) {
+	    Timeline.setTimelinePaused(true);
+	    UI.moveMapToLatLon(lat, lon, zoom, bearing, pitch);
+		UI.showMessage(message);
+	    
+	    setTimeout(function() {
+		    Timeline.setTimelinePaused(false);
+		    UI.moveMapToLatLon(39.9793073, -75.0810122, 11.2);
+		    UI.hideMessage();
+	    }, 10000);
     }
     
     var resetTimeline = function() {		
@@ -99,6 +115,7 @@ Timeline = (function() {
     
     return {
         init: init,
+        isPaused: isPaused,
         getStartDate: getStartDate,
         getCurrentDate: getCurrentDate,
         getEndDate: getEndDate,
