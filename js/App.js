@@ -13,6 +13,7 @@ $(function(){
 	$.getJSON(uri, function(response, status, jqXHR) {
 		data = response;
 
+		Analytics.init();
 		Utilities.init();
 		Data.init();
 		Timeline.init();

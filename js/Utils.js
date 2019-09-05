@@ -18,6 +18,8 @@ Utilities = (function() {
 		$('#intro').addClass('show');
 		$('#outro').removeClass('show');
 		$('aside').removeClass('show');
+		
+		Analytics.sendAnalyticsScreen('Screen: Introduction');
     }
 
     var resetBrowser = function() {
@@ -38,12 +40,16 @@ Utilities = (function() {
 	    Timeline.resetTimeline();
 	    Timeline.loopThroughDays();
 	    UI.resetFilters();
+	    
+	    Analytics.sendAnalyticsScreen('Screen: Map Animation');
     }
     
     var endTimeline = function() {
 	    $('#outro').addClass('show');
 	    
 	    Timeline.setTimelinePaused(true);
+	    
+	    Analytics.sendAnalyticsScreen('Screen: Conclusion');
     }
     
     var startRestartTimer = function() {

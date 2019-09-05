@@ -159,6 +159,8 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    enableResetFilterButton();
+	    
+	    Analytics.sendAnalyticsEvent('Filter', filterAgeMin + '–' filterAgeMax, 'Age');
     }
     var filterByRace = function() {
 	    filterRace = $(this).attr('data-race');
@@ -170,6 +172,8 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    enableResetFilterButton();
+	    
+	    Analytics.sendAnalyticsEvent('Filter', filterRace, 'Race');
     }
     var filterByGender = function() {
 	    filterGender = $(this).attr('data-gender');
@@ -181,6 +185,8 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    enableResetFilterButton();
+	    
+	    Analytics.sendAnalyticsEvent('Filter', filterGender, 'Sex');
     }
     var filterByImmigration = function() {
 	    filterGen = $(this).attr('data-gen');
@@ -192,6 +198,8 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    enableResetFilterButton();
+	    
+	    Analytics.sendAnalyticsEvent('Filter', filterGen, 'Immigration Generation');
     }
     
     var updateFilterCount = function() {
@@ -438,8 +446,10 @@ UI = (function() {
 	    $('aside').toggleClass('filtersOpen');
 	    if ( $('aside').hasClass('filtersOpen') ) {
 		    $('#show-hide-filters').text('HIDE FILTERS');
+		    Analytics.sendAnalyticsEvent('Panel', 'Open');
 	    } else {
 		    $('#show-hide-filters').text('SHOW FILTERS');
+		    Analytics.sendAnalyticsEvent('Panel', 'Close');
 	    }
     }
     
@@ -460,6 +470,8 @@ UI = (function() {
 	    updateMapFilters();
 	    disableResetFilterButton();
 	    resetFilterChartData();
+	    
+	    Analytics.sendAnalyticsEvent('Filter', 'Reset');
 	}
     
     var resetTotalCount = function() {
