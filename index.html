@@ -1,6 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	
+	ga('create', 'UA-147257709-2', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,17 +23,6 @@
     <title>See the Spread - Spit Spreads Death</title>
 </head>
 <body>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-147257709-2"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	
-	  gtag('config', 'UA-147257709-2');
-	</script>
-
-	
 	<div id="intro" class="fade show">
 		<h1>See the Spread</h1>
 		<h2>Watch how the influenza pandemic spread across the city of Philadelphia.<br/>Each dot represents an individual death.</h2>
@@ -31,11 +30,12 @@
 	</div>
 	<div id="outro" class="fade">
 		<h2>
-			Before the pandemic, about 50 to 70 people died each day in Philadelphia—an expected rate for a city of nearly  2 million.
-			For a week in October 1918, the death rate was 12 to 14 times higher, with 700 to 900 people dying every day. 
-			Over six months, influenza and related infections sickened 25% of Philadelphians.<br/><br/>
-			
-			One in every 100 people died.
+			Before the influenza pandemic, about 50 to 70 people died each day in Philadelphia—an expected rate for a city of almost two million.
+			For a week in October 1918, the death rate from the pandemic alone was more than ten times higher, with 500 to 850 people dying every day.
+			<br/><br/>
+			Over six months, influenza and related infections sickened a quarter of the population.
+			<br/><br/>
+			For every 25 people with influenza, one person died.
 		</h2>
 		<button id="restart" type="button" class="btn btn-primary">Watch Again?</button>
 	</div>
@@ -50,7 +50,7 @@
 				<div id="count">
 					<h1 class="count-total">0</h1>
 					<h2 class="count-title">ALL FLU-RELATED DEATHS</h2>
-					<h3 class="count-comparison">COMPARED TO <span class="count-comparison-total">0</span> TOTAL DEATHS<br/>FOR THE SAME PERIOD IN 1917</h3>
+					<h3 class="count-comparison">COMPARED TO <span class="count-comparison-total">0</span> TOTAL DEATHS<br/> FOR THE SAME PERIOD</h3>
 				</div>
 			</div>
 			<nav>
@@ -73,19 +73,22 @@
 					
 					<div id="filter-age" class="filter-group">
 						<h2>AGE GROUP</h2>
-						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="0" data-age-max="12" value="UNDER 13">
-						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="13" data-age-max="18" value="13&ndash;18">
-						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="19" data-age-max="35" value="19&ndash;35">
+						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="0" data-age-max="2" value="0&ndash;2">
+						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="3" data-age-max="12" value="3&ndash;12">
+						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="13" data-age-max="20" value="13&ndash;20">
+						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="21" data-age-max="35" value="21&ndash;35">
+						<br/>
 						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="36" data-age-max="45" value="36&ndash;45">
 						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="46" data-age-max="55" value="46&ndash;55">
-						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="56" data-age-max="100" value="OVER 55">
+						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="56" data-age-max="75" value="56&ndash;75">
+						<input type="button" class="btn btn-secondary active" name="filter-group-age" data-age-min="76" data-age-max="100" value="76+">
 					</div>
 					
 					<div id="filter-gen" class="filter-group">
 						<h2>IMMIGRATION GENERATION</h2>
-						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="0g" value="ABROAD">
-						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="1g" value="1ST GENERATION">
-						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="2g" value="2ND+ GENERATION">
+						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="0g" value="BORN ABROAD">
+						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="1g" value="1ST GEN.">
+						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="2g" value="2ND+ GEN.">
 						<input type="button" class="btn btn-secondary active" name="filter-group-gen" data-gen="99g" value="UNKNOWN">
 					</div>
 					

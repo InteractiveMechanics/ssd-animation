@@ -116,7 +116,10 @@ UI = (function() {
 				    xAxes: [{
 					    type: 'time',
 					    time: {
-						    unit: 'month'
+						    unit: 'month',
+						    displayFormats: {
+		                        month: 'MMM. YYYY'
+		                    }
 					    },
 					    gridLines: {
 						    color: 'rgba(255, 255, 255, 0.35)',
@@ -160,7 +163,7 @@ UI = (function() {
 	    updateMapFilters();
 	    enableResetFilterButton();
 	    
-	    Analytics.sendAnalyticsEvent('Filter', filterAgeMin + '–' filterAgeMax, 'Age');
+	    Analytics.sendAnalyticsEvent('Filter', filterAgeMin + '–' + filterAgeMax, 'Age');
     }
     var filterByRace = function() {
 	    filterRace = $(this).attr('data-race');

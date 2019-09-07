@@ -37,7 +37,6 @@ h1 {
 
 h2 {
   font-size: 1.8rem;
-  font-style: italic;
   font-family: 'PT Serif';
   line-height: 1.8; }
 
@@ -162,6 +161,9 @@ nav {
     font-size: 1.4rem;
     padding: 1rem 2.4rem;
     color: #A5AA3A; }
+
+#outro {
+  padding: 200px 250px; }
 
 main aside {
   background: rgba(74, 51, 35, 0.65);

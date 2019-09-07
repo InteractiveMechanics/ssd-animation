@@ -1,17 +1,17 @@
 Timeline = (function() {
 	var startDate = -1619899200000; // September 1, 1918
-	var endDate = -1601707653600; // March 30, 1919
+	var endDate = -1604299653600; // February 28, 1919
 	var currentDate = -1619899200000; // September 1, 1918
 
 	var day = 86400000; // 1 day in milliseconds
-	var speed = 250; // 1/4 second per day
+	var speed = 100; // 1/4 second per day
 	
 	var timelineInterval;
-	var isPaused = true;
+	var isPaused = true;;
 	
 
 	var init = function() {
-		
+
     }
     
     var loopThroughDays = function() {
@@ -24,41 +24,61 @@ Timeline = (function() {
 			    // START THE TIMELINE INTERVAL
 			    timelineInterval = setInterval(function(){
 				    if (currentDate < endDate){
-					    
-					    // IF THE TIMELINE IS STILL RUNNING
-					    // GENERATE THE PRETTY DATE STRING FOR TODAY
-					    var prettyDate = new Date(currentDate);
-					    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-					    var prettyDateString = months[prettyDate.getMonth()] + ' ' + prettyDate.getDate() + ', ' + prettyDate.getFullYear();
-					    
-					    $('#date').text(prettyDateString);
-					   	
-					   	// CHECK FOR EVERY NEW RECORD FOR THIS DAY
-					    $.each(Data.cleanData["features"], function(index, value){
-							if (value["properties"]["date"] >= currentDate && value["properties"]["date"] < currentDate + day){
-								
-								// IF THIS RECORD HAPPENED TODAY, ADD IT TO UI
-								UI.addRecordData(value);
-							}
-					    });
-					    					    
-					    $.each(Data.dailyData["dates"], function(index, value){
-						    var prettyDailyDate = new Date(value["date"]);
-						    			    
-						    if (prettyDailyDate.getTime() >= currentDate && prettyDailyDate.getTime() < currentDate + day){
-							    UI.addDailyDataCount(value["count"]);
+					    if (!isPaused){
+						    // IF THE TIMELINE IS STILL RUNNING
+						    // GENERATE THE PRETTY DATE STRING FOR TODAY
+						    var prettyDate = new Date(currentDate);
+						    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+						    var prettyDateString = months[prettyDate.getMonth()] + ' ' + prettyDate.getDate() + ', ' + prettyDate.getFullYear();
+						    
+						    $('#date').text(prettyDateString);
+						   	
+						   	// CHECK FOR EVERY NEW RECORD FOR THIS DAY
+						    $.each(Data.cleanData["features"], function(index, value){
+								if (value["properties"]["date"] >= currentDate && value["properties"]["date"] < currentDate + day){
+									
+									// IF THIS RECORD HAPPENED TODAY, ADD IT TO UI
+									UI.addRecordData(value);
+								}
+						    });
+						    					    
+						    $.each(Data.dailyData["dates"], function(index, value){
+							    var prettyDailyDate = new Date(value["date"]);
 							    
-							    if (value["date"] == "1918-10-12"){
-								    pauseAndZoom(39.936878, -75.15842, 16, 0, 0, "This is a test message.");
+							    console.log(value["date"]);
+							    			    
+							    if (prettyDailyDate.getTime() >= currentDate && prettyDailyDate.getTime() < currentDate + day){
+								    UI.addDailyDataCount(value["count"]);
+								    
+								    if (value["date"] == "1918-09-08"){
+									    pauseAndZoom(39.8923418, -75.1581446, 14, 0, 15, 
+									    	"September 7: A ship from Boston carrying sailors with influenza arrives at the Philadelphia Naval Shipyard.");
+								    }
+								    if (value["date"] == "1918-09-29"){
+									    pauseAndZoom(39.936878, -75.15842, 14, 0, 15, 
+									    	"September 28: Fourth Liberty Loan parade; 200,000 people crowd onto Broad Street north and south of City Hall.");
+								    }
+								    if (value["date"] == "1918-10-13"){
+									    pauseAndZoom(39.952102, -75.135475, 12, 5, 15, 
+									    	"October 12: Deadliest day, with 853 flu deaths.");
+								    }
+								    if (value["date"] == "1918-10-27"){
+									    pauseAndZoom(39.952102, -75.135475, 12, 0, 45, 
+									    	"October 26: City lifts ban on public gatherings after deaths decline.");
+								    }
+								    if (value["date"] == "1919-01-01"){
+									    pauseAndZoom(39.952102, -75.135475, 12, 5, 15, 
+									    	"January: Flu deaths rise slightly in New Year.");
+								    }
 							    }
-						    }
-					    });
-					    
-					    // EACH DAY, WRITE THE DATA
-					    UI.writeFrame(currentDate);
-					    
-					    // SET THE DATE UP BY ONE
-					    currentDate = currentDate + day;
+						    });
+						    
+						    // EACH DAY, WRITE THE DATA
+						    UI.writeFrame(currentDate);
+						    
+						    // SET THE DATE UP BY ONE
+						    currentDate = currentDate + day;
+						}
 				    } else {
 					    // AT THE END OF THE TIMELINE
 					    // SET OUTRO SCREENS					    
@@ -75,15 +95,17 @@ Timeline = (function() {
     }
     
     var pauseAndZoom = function(lat, lon, zoom, bearing, pitch, message) {
-	    Timeline.setTimelinePaused(true);
+	    setTimelinePaused(true);
+	    
 	    UI.moveMapToLatLon(lat, lon, zoom, bearing, pitch);
 		UI.showMessage(message);
 	    
 	    setTimeout(function() {
-		    Timeline.setTimelinePaused(false);
+		    setTimelinePaused(false);
+		    
 		    UI.moveMapToLatLon(39.9793073, -75.0810122, 11.2);
 		    UI.hideMessage();
-	    }, 10000);
+	    }, 8000);
     }
     
     var resetTimeline = function() {		
