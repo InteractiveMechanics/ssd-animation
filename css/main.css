@@ -3,16 +3,6 @@
     opacity: 0; }
   100% {
     opacity: 1; } }
-@-moz-keyframes fadeIn {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-@-ms-keyframes fadeIn {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
 @keyframes fadeIn {
   0% {
     opacity: 0; }
@@ -20,9 +10,25 @@
     opacity: 1; } }
 .fade-in {
   -webkit-animation: fadeIn 1s 1 forwards;
-  -moz-animation: fadeIn 1s 1 forwards;
-  -o-animation: fadeIn 1s 1 forwards;
   animation: fadeIn 1s 1 forwards; }
+
+@-webkit-keyframes pulse {
+  0% {
+    opacity: 1; }
+  70% {
+    opacity: 0.7; }
+  100% {
+    opacity: 1; } }
+@keyframes pulse {
+  0% {
+    opacity: 1; }
+  70% {
+    opacity: 0.7; }
+  100% {
+    opacity: 1; } }
+.pulse {
+  -webkit-animation: pulse 2s infinite;
+  animation: pulse 2s infinite; }
 
 * {
   font-family: 'PT Sans', sans-serif;
@@ -84,9 +90,9 @@ main {
     top: 0;
     z-index: 9; }
     main aside.filtersOpen .aside-group {
-      top: -420px; }
+      top: -440px; }
     main aside.filtersOpen nav {
-      top: -460px; }
+      top: -540px; }
     main aside .aside-group {
       height: 100vh;
       position: relative;
@@ -124,7 +130,7 @@ main {
           font-weight: bold; }
 
 nav {
-  height: 530px;
+  height: 620px;
   position: relative;
   transition: 0.5s all;
   z-index: 99999;
@@ -153,7 +159,7 @@ nav {
     margin-bottom: 40px; }
   #intro h2,
   #outro h2 {
-    margin-bottom: 120px; }
+    margin-bottom: 200px; }
   #intro button,
   #outro button {
     background-color: white;

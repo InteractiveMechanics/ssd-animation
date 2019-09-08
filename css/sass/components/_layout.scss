@@ -23,10 +23,10 @@ main {
     aside {
 	    &.filtersOpen {
 		    .aside-group {
-		        top: -420px;
+		        top: -440px;
 			}
 			nav {
-				top: -460px;
+				top: -540px;
 			}
 	    }
 	    
@@ -87,7 +87,7 @@ main {
 }
 
 nav {
-	height: 530px;
+	height: 620px;
 	position: relative;
 	transition: 0.5s all;
 	z-index: 99999;
@@ -116,7 +116,7 @@ nav {
 		margin-bottom: 40px;
 	}
 	h2 {
-		margin-bottom: 120px;
+		margin-bottom: 200px;
 	}
 	button {
 		background-color: white;
