@@ -472,7 +472,7 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    disableResetFilterButton();
-	    resetFilterChartData();
+	    //resetFilterChartData();
 	    
 	    Analytics.sendAnalyticsEvent('Filter', 'Reset');
 	}
