@@ -11,6 +11,13 @@
     -webkit-animation: fadeIn 1s 1 forwards;
     animation: fadeIn 1s 1 forwards;
 }
+.fade {
+	transition: opacity .15s linear;
+	
+	&.long-fade {
+		transition: opacity .5s linear;
+	}
+}
 
 
 @-webkit-keyframes pulse {

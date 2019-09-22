@@ -4,7 +4,7 @@ Timeline = (function() {
 	var currentDate = -1619899200000; // September 1, 1918
 
 	var day = 86400000; // 1 day in milliseconds
-	var speed = 250; // 1/4 second per day
+	var speed = 300; // ~1/4 second per day
 	
 	var timelineInterval;
 	var isPaused = true;;
@@ -44,9 +44,7 @@ Timeline = (function() {
 						    					    
 						    $.each(Data.dailyData["dates"], function(index, value){
 							    var prettyDailyDate = new Date(value["date"]);
-							    
-							    console.log(value["date"]);
-							    			    
+							    							    			    
 							    if (prettyDailyDate.getTime() >= currentDate && prettyDailyDate.getTime() < currentDate + day){
 								    UI.addDailyDataCount(value["count"]);
 								    
@@ -66,7 +64,7 @@ Timeline = (function() {
 									    pauseAndZoom(39.952102, -75.135475, 12, 0, 45, 
 									    	"October 26: City lifts ban on public gatherings after deaths decline.");
 								    }
-								    if (value["date"] == "1919-01-01"){
+								    if (value["date"] == "1919-01-02"){
 									    pauseAndZoom(39.952102, -75.135475, 12, 5, 15, 
 									    	"January: Flu deaths rise slightly in New Year.");
 								    }
@@ -81,7 +79,7 @@ Timeline = (function() {
 						}
 				    } else {
 					    // AT THE END OF THE TIMELINE
-					    // SET OUTRO SCREENS					    
+					    // SET OUTRO SCREENS	    
 					    Utilities.endTimeline();
 					    Utilities.startRestartTimer();
 					    UI.moveMapToLatLon(39.9793073, -75.0810122, 11.2);

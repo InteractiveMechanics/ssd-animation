@@ -1,15 +1,5 @@
 UI = (function() {
 	
-	/*
-		Right now, the way we build data isn't efficient.
-		We need to know daily totals and daily filtered totals.
-		We need to be able to update past data when filters happen.
-		We need to update the chart, map, and other interface each day and time a change is made.
-		
-		So, we need to write the frame daily with the latest data and filters.
-		We need to have a way to get past data per day when filters change to update the chart.
-	*/
-	
 	// STORE THE FILTER VALUES
 	var filterGender = '';
 	var filterAgeMin = '';
@@ -103,15 +93,24 @@ UI = (function() {
 			    },
 			    scales: {
 				    yAxes: [{
-					    display: false,
+					    display: true,
 					    offset: true,
 					    scaleLabel: {
-					    	drawBorder: false,
+					    	drawBorder: true,
 							zeroLineWidth: false
 						},
 						ticks: {
-							min: 0
-						}
+							min: 0,
+							max: 1000,
+							stepSize: 250,
+							fontColor: 'rgba(255, 255, 255, 0.5)'
+						},
+						gridLines: {
+						    color: 'rgba(255, 255, 255, 0.1)',
+					    },
+					    scaleLabel: {
+					    	fontColor: 'rgba(255, 255, 255, 0.5)'
+					    }
 				    }],
 				    xAxes: [{
 					    type: 'time',
@@ -119,7 +118,9 @@ UI = (function() {
 						    unit: 'month',
 						    displayFormats: {
 		                        month: 'MMM. YYYY'
-		                    }
+		                    },
+		                    min: -1619899200000,
+		                    max: -1604386053600
 					    },
 					    gridLines: {
 						    color: 'rgba(255, 255, 255, 0.35)',
@@ -162,6 +163,7 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    enableResetFilterButton();
+	    toggleFilterPanel();
 	    
 	    Analytics.sendAnalyticsEvent('Filter', filterAgeMin + '–' + filterAgeMax, 'Age');
     }
@@ -175,6 +177,7 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    enableResetFilterButton();
+	    toggleFilterPanel();
 	    
 	    Analytics.sendAnalyticsEvent('Filter', filterRace, 'Race');
     }
@@ -188,6 +191,7 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    enableResetFilterButton();
+	    toggleFilterPanel();
 	    
 	    Analytics.sendAnalyticsEvent('Filter', filterGender, 'Sex');
     }
@@ -201,6 +205,7 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    enableResetFilterButton();
+	    toggleFilterPanel();
 	    
 	    Analytics.sendAnalyticsEvent('Filter', filterGen, 'Immigration Generation');
     }
@@ -405,11 +410,14 @@ UI = (function() {
     var updateTotalCount = function() {
 	    if (filterGender || filterAgeMin || filterAgeMax || filterRace){
 	    	$('#count .count-total').text(addCommasToNumbers(filteredTotalCount));
+	    	$('#count .count-comparison-percentage').text(Math.ceil(filteredTotalCount/allTotalCount * 100));
 	    } else {
 		    $('#count .count-total').text(addCommasToNumbers(totalCount));
+		    $('#count .count-comparison-percentage').text(Math.ceil(totalCount/allTotalCount * 100));
 	    }
 	    
 	    $('#count .count-comparison-total').text(addCommasToNumbers(allTotalCount));
+	    
     }
     
     var addCommasToNumbers = function(x) {
@@ -473,6 +481,7 @@ UI = (function() {
 	    updateMapFilters();
 	    disableResetFilterButton();
 	    resetFilterChartData();
+	    toggleFilterPanel();
 	    
 	    Analytics.sendAnalyticsEvent('Filter', 'Reset');
 	}

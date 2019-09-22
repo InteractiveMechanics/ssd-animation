@@ -1,6 +1,6 @@
 <?php
 	
-	$page = 1;
+	$page = 0;
 	$result = array();
 	
 	function getRecordsByPage() {

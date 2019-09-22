@@ -12,6 +12,11 @@
   -webkit-animation: fadeIn 1s 1 forwards;
   animation: fadeIn 1s 1 forwards; }
 
+.fade {
+  transition: opacity .15s linear; }
+  .fade.long-fade {
+    transition: opacity .5s linear; }
+
 @-webkit-keyframes pulse {
   0% {
     opacity: 1; }
@@ -35,14 +40,14 @@
   user-select: none; }
 
 h1 {
-  font-size: 9rem;
+  font-size: 9.6rem;
   font-weight: 700;
   font-family: 'Fjalla One', sans-serif;
   letter-spacing: -3px;
   text-transform: uppercase; }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-family: 'PT Serif';
   line-height: 1.8; }
 
@@ -50,11 +55,11 @@ h3 {
   font-size: 1.6rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   line-height: 1.8; }
 
 h4 {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 1px; }
