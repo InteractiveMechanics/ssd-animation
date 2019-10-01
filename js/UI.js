@@ -490,8 +490,9 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    disableResetFilterButton();
-	    resetFilterChartData();
 	    closeFilterPanel()
+
+	    //resetFilterChartData();
 	    
 	    Analytics.sendAnalyticsEvent('Filter', 'Reset');
 	}
