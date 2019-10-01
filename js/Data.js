@@ -198,11 +198,12 @@ Data = (function() {
 	    // TRANSFORM OUR DATA INTO GEOJSON FORMAT
 	    // AND SET IT AS DATA.CLEANDATA INSTEAD
 	    $.each(data, function(index, value){
-		    var lat;
-		    var lon;
+		    var lat = 0;
+		    var lon = 0;
 		    
 		    var date = Date.parse(value.death_date);
-		    var age = parseInt(value.age);
+		    var age = value.age ? parseInt(value.age) : 0;
+		    
 		    
 		    if (value.lat) {
 			    lat = value.lat;

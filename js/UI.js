@@ -341,13 +341,13 @@ UI = (function() {
 		
 		if (filterGen){
 			
-			if (filterGen == "0g"){
+			if (filterGen == "Abroad"){
 				text += " BORN ABROAD";
 			} else if (filterGen == "1g"){
 				text += " FIRST GENERATION";
-			} else if (filterGen == "2g"){
+			} else if (filterGen == "2+"){
 				text += " 2ND GENERATION OR MORE";
-			} else if (filterGen == "99g"){
+			} else if (filterGen == "U"){
 				text += "";
 			}
 		}
@@ -386,17 +386,21 @@ UI = (function() {
 			}
 			
 			if (filterAgeMin == 0){
-				text += " UNDER 13 ";
+				text += " UNDER 2 ";
+			} else if (filterAgeMin == 3){
+				text += " 3&ndash;12 ";
 			} else if (filterAgeMin == 13){
-				text += " 13&ndash;18 ";
-			} else if (filterAgeMin == 19){
-				text += " 19&ndash;35 ";
+				text += " 13&ndash;20 ";
+			} else if (filterAgeMin == 21){
+				text += " 21&ndash;35 ";
 			} else if (filterAgeMin == 36){
 				text += " 36&ndash;45 ";
 			} else if (filterAgeMin == 46){
 				text += " 46&ndash;55 ";
 			} else if (filterAgeMin == 56){
-				text += " OVER 55 ";
+				text += " 56&ndash;75 ";
+			} else if (filterAgeMin == 76){
+				text += " OVER 76 ";
 			}
 		}
 		
@@ -464,6 +468,12 @@ UI = (function() {
 	    }
     }
     
+    var toggleFilterPanel = function() {
+	    $('aside').removeClass('filtersOpen');
+		$('#show-hide-filters').text('SHOW FILTERS');
+		Analytics.sendAnalyticsEvent('Panel', 'Close');
+    }
+    
     var resetFilters = function() {
 	    filterGender = '';
 		filterAgeMin = '';
@@ -481,7 +491,7 @@ UI = (function() {
 	    updateMapFilters();
 	    disableResetFilterButton();
 	    resetFilterChartData();
-	    toggleFilterPanel();
+	    closeFilterPanel()
 	    
 	    Analytics.sendAnalyticsEvent('Filter', 'Reset');
 	}
