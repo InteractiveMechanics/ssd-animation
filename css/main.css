@@ -177,6 +177,9 @@ nav {
 #outro {
   padding: 200px 250px; }
 
+.mapboxgl-ctrl-logo {
+  pointer-events: none !important; }
+
 main aside {
   background: rgba(74, 51, 35, 0.65);
   height: 100vh; }
