@@ -344,11 +344,11 @@ UI = (function() {
 			if (filterGen == "Abroad"){
 				text += " BORN ABROAD";
 			} else if (filterGen == "1g"){
-				text += " FIRST GENERATION";
+				text += " 1ST GENERATION IMMIGRANT";
 			} else if (filterGen == "2+"){
-				text += " 2ND GENERATION OR MORE";
+				text += " 2ND GENERATION OR LATER IMMIGRANT";
 			} else if (filterGen == "U"){
-				text += "";
+				text += " UNKNOWN IMMIGRANT STATUS";
 			}
 		}
 		
@@ -412,7 +412,7 @@ UI = (function() {
 	}
         
     var updateTotalCount = function() {
-	    if (filterGender || filterAgeMin || filterAgeMax || filterRace){
+	    if (filterGender || filterAgeMin || filterAgeMax || filterGen || filterRace){
 	    	$('#count .count-total').text(addCommasToNumbers(filteredTotalCount));
 	    	$('#count .count-comparison-percentage').text(Math.ceil(filteredTotalCount/allTotalCount * 100));
 	    } else {
@@ -468,7 +468,7 @@ UI = (function() {
 	    }
     }
     
-    var toggleFilterPanel = function() {
+    var closeFilterPanel = function() {
 	    $('aside').removeClass('filtersOpen');
 		$('#show-hide-filters').text('SHOW FILTERS');
 		Analytics.sendAnalyticsEvent('Panel', 'Close');
@@ -490,7 +490,7 @@ UI = (function() {
 	    updateCountTitle();
 	    updateMapFilters();
 	    disableResetFilterButton();
-	    closeFilterPanel()
+	    closeFilterPanel();
 
 	    //resetFilterChartData();
 	    

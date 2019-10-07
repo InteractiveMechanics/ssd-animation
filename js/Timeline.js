@@ -56,17 +56,25 @@ Timeline = (function() {
 									    pauseAndZoom(39.936878, -75.15842, 14, 0, 15, 
 									    	"September 28: Fourth Liberty Loan parade; 200,000 people crowd onto Broad Street north and south of City Hall.");
 								    }
+								    if (value["date"] == "1918-10-06"){
+									    pauseAndZoom(39.952102, -75.135475, 12, 0, 45, 
+									    	"October 6: Flu deaths exceed 500 per day for the first time and continue to climb.");
+								    }
 								    if (value["date"] == "1918-10-13"){
 									    pauseAndZoom(39.952102, -75.135475, 12, 5, 15, 
-									    	"October 12: Deadliest day, with 853 flu deaths.");
+									    	"October 12: Deadliest day, with 837 flu deaths.");
 								    }
 								    if (value["date"] == "1918-10-27"){
 									    pauseAndZoom(39.952102, -75.135475, 12, 0, 45, 
 									    	"October 26: City lifts ban on public gatherings after deaths decline.");
 								    }
+								    if (value["date"] == "1918-11-28"){
+									    pauseAndZoom(39.952102, -75.135475, 12, 5, 15, 
+									    	"Flu deaths were concentrated in high-density neighborhoods and at hospitals. Areas with few or no deaths were mostly undeveloped in 1918.");
+								    }
 								    if (value["date"] == "1919-01-02"){
 									    pauseAndZoom(39.952102, -75.135475, 12, 5, 15, 
-									    	"January: Flu deaths rise slightly in New Year.");
+									    	"Flu deaths rise slightly in New Year.");
 								    }
 							    }
 						    });
