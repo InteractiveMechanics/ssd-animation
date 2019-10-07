@@ -7,7 +7,7 @@
 		
 		global $result, $page;
 		
-		$url = "http://dev.interactivemechanics.com/spit-spreads-death/cms/api/animation?_format=json&page=" . $page;
+		$url = "http://exhibit.spitspreadsdeath.com/cms/api/animation?_format=json&page=" . $page;
 		$ch = curl_init();
 		
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
