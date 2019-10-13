@@ -40,19 +40,19 @@
   user-select: none; }
 
 h1 {
-  font-size: 9.6rem;
+  font-size: 6rem;
   font-weight: 700;
   font-family: 'Fjalla One', sans-serif;
   letter-spacing: -3px;
   text-transform: uppercase; }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-family: 'PT Serif';
   line-height: 1.8; }
 
 h3 {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -111,7 +111,7 @@ main {
       color: white;
       font-weight: 700;
       text-transform: uppercase;
-      font-size: 2.7rem;
+      font-size: 2.1rem;
       text-align: center;
       font-family: 'Fjalla One', sans-serif;
       padding: 20px 0;
@@ -143,7 +143,8 @@ nav {
   top: 0; }
 
 #intro,
-#outro {
+#outro,
+#bad-browser {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -152,22 +153,45 @@ nav {
   text-align: center;
   padding: 300px 300px;
   pointer-events: none; }
+  @media screen and (max-width: 1024px) {
+    #intro,
+    #outro,
+    #bad-browser {
+      padding: 40px; } }
   #intro.show,
-  #outro.show {
+  #outro.show,
+  #bad-browser.show {
     pointer-events: auto; }
   #intro h1, #intro h2, #intro h3,
   #outro h1,
   #outro h2,
-  #outro h3 {
+  #outro h3,
+  #bad-browser h1,
+  #bad-browser h2,
+  #bad-browser h3 {
     color: white; }
   #intro h1,
-  #outro h1 {
+  #outro h1,
+  #bad-browser h1 {
     margin-bottom: 40px; }
+    @media screen and (max-width: 1024px) {
+      #intro h1,
+      #outro h1,
+      #bad-browser h1 {
+        font-size: 4rem; } }
   #intro h2,
-  #outro h2 {
-    margin-bottom: 200px; }
+  #outro h2,
+  #bad-browser h2 {
+    margin-bottom: 100px; }
+    @media screen and (max-width: 1024px) {
+      #intro h2,
+      #outro h2,
+      #bad-browser h2 {
+        font-size: 1.4rem;
+        margin-bottom: 40px; } }
   #intro button,
-  #outro button {
+  #outro button,
+  #bad-browser button {
     background-color: white;
     border: none;
     font-size: 1.4rem;
@@ -176,6 +200,22 @@ nav {
 
 #outro {
   padding: 200px 250px; }
+
+#bad-browser {
+  top: 0;
+  display: none;
+  opacity: 0; }
+  @media screen and (max-width: 1024px) {
+    #bad-browser {
+      background: linear-gradient(90deg, #4a3323 0%, #a5a93a 100%);
+      display: block;
+      opacity: 1;
+      pointer-events: auto; } }
+  #bad-browser button {
+    color: #A5AA3A; }
+  #bad-browser address {
+    color: white;
+    margin-top: 20px; }
 
 .mapboxgl-ctrl-logo {
   pointer-events: none !important; }
